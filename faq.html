@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>常见问题 FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fg:#1E1B4B; --sub:#5B5A78; --line:#E4E1F5; --bg:#F5F3FF;
+    --primary:#6366F1; --secondary:#818CF8; --green:#10B981; --red:#E1497A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:56px 20px 90px; background:var(--bg); color:var(--fg);
+    font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+  button:focus-visible, summary:focus-visible{ outline:2px solid var(--primary); outline-offset:2px; border-radius:6px; }
+  .wrap{max-width:900px; margin:0 auto;}
+
+  /* ---------- Header ---------- */
+  header{text-align:center; margin-bottom:44px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700;
+    color:var(--primary); background:#EEF0FE; padding:6px 14px; border-radius:999px; margin-bottom:16px;
+  }
+  h1{font-size:32px; font-weight:800; margin:0 0 10px; letter-spacing:-.01em;}
+  .lead{font-size:15px; color:var(--sub); margin:0;}
+
+  /* ---------- TOC ---------- */
+  .toc{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:28px 0 0;
+  }
+  .toc a{
+    font-size:12.5px; font-weight:600; color:var(--primary); background:#fff;
+    border:1px solid var(--line); padding:7px 14px; border-radius:999px; text-decoration:none;
+  }
+  .toc a:hover{ background:#EEF0FE; }
+
+  /* ---------- Section ---------- */
+  section{ margin-top:52px; scroll-margin-top:24px; }
+  .sec-head{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .sec-num{
+    width:28px; height:28px; border-radius:9px; background:var(--primary); color:#fff;
+    font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .sec-head h2{ font-size:19px; font-weight:800; margin:0; }
+  .sec-note{ font-size:12.5px; color:var(--sub); margin:0 0 16px 38px; }
+
+  /* ---------- Q&A accordion ---------- */
+  .qa{ display:flex; flex-direction:column; gap:10px; }
+  details{
+    background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+  }
+  details[open]{ border-color:var(--secondary); }
+  summary{
+    list-style:none; cursor:pointer; padding:16px 20px; font-size:14.5px; font-weight:700;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary .chev{
+    width:20px; height:20px; flex-shrink:0; color:var(--primary); transition:transform 200ms;
+  }
+  details[open] summary .chev{ transform:rotate(180deg); }
+  .qa-body{
+    padding:0 20px 18px; font-size:13.5px; color:var(--sub); line-height:1.75;
+  }
+  .qa-body p{ margin:0 0 10px; }
+  .qa-body p:last-child{ margin-bottom:0; }
+  .qa-body ul{ margin:8px 0; padding-left:20px; }
+  .qa-body li{ margin-bottom:6px; }
+  .qa-body code{
+    background:#F1F0FB; color:var(--primary); padding:1px 6px; border-radius:5px; font-size:12.5px;
+  }
+  .qa-body strong{ color:var(--fg); }
+
+  /* ---------- Comparison table ---------- */
+  .table-scroll{ overflow-x:auto; margin-bottom:16px; border-radius:16px; border:1px solid var(--line); }
+  table{ width:100%; border-collapse:collapse; font-size:12.5px; background:#fff; min-width:680px; }
+  thead th{
+    text-align:center; font-weight:700; padding:14px 10px; background:#F8F7FE; border-bottom:2px solid var(--line);
+    white-space:nowrap;
+  }
+  thead th:first-child{ text-align:left; }
+  thead .tier-name{ display:block; font-size:12.5px; color:var(--fg); }
+  thead .tier-off{ display:block; font-size:15px; font-weight:800; color:var(--primary); margin-top:2px; }
+  thead th.hero .tier-off{ color:var(--green); }
+  tbody td{ text-align:center; padding:12px 10px; border-bottom:1px solid var(--line); color:var(--sub); }
+  tbody td:first-child{ text-align:left; font-weight:600; color:var(--fg); }
+  tbody tr:last-child td{ border-bottom:none; }
+  td.hero{ background:#F4FBF8; }
+  .yes{ color:var(--green); font-weight:800; }
+  .no{ color:#C6C3DD; font-weight:800; }
+  .stat{ color:var(--primary); font-weight:800; }
+  thead .group-row th{ padding:10px; font-size:11.5px; font-weight:700; color:var(--sub); background:#F8F7FE; border-bottom:1px solid var(--line); }
+  thead .group-row th.g-gpt{ color:var(--fg); }
+  thead .group-row th.g-claude{ color:var(--fg); }
+  /* Claude columns split from GPT column via divider on left of first Claude col */
+  thead th:nth-child(3), tbody td:nth-child(3){ border-left:2px solid #f1f0fb; }
+  .table-note{
+    font-size:12px; color:var(--sub); background:#e4e1f5; border:1px solid var(--line);
+    border-radius:12px; padding:12px 16px; margin-bottom:24px; line-height:1.7;
+  }
+
+  .foot{ text-align:center; margin-top:56px; font-size:12px; color:var(--sub); line-height:1.9; }
+
+  @media (max-width:640px){
+    h1{ font-size:26px; }
+    .sec-note{ margin-left:0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">HELP CENTER</div>
+    <h1>常见问题 FAQ</h1>
+    <p class="lead">接入、计费、渠道差异，一次看懂</p>
+    <div class="toc">
+      <a href="#s1">接入使用</a>
+      <a href="#s2">价格与套餐</a>
+      <a href="#s3">支持的模型</a>
+      <a href="#s4">功能支持差异</a>
+      <a href="#s5">充值与计费</a>
+      <a href="#s6">稳定性与安全</a>
+      <a href="#s7">成本参考</a>
+      <a href="#s8">团队与企业</a>
+    </div>
+  </header>
+
+  <!-- ============ 1. 接入使用 ============ -->
+  <section id="s1">
+    <div class="sec-head"><div class="sec-num">1</div><h2>接入使用</h2></div>
+    <div class="qa">
+      <details open>
+        <summary>怎么接入？支持哪些客户端？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <p>与官方 API 完全兼容，只需替换 base URL 和密钥即可。</p>
+          <ul>
+            <li><strong>Claude Code</strong>：设置 <code>ANTHROPIC_BASE_URL</code> 和 <code>ANTHROPIC_AUTH_TOKEN</code> 环境变量</li>
+            <li><strong>Codex CLI</strong>：按官方文档配置自定义 provider，填入我们的 base URL</li>
+            <li><strong>任意 OpenAI SDK / 兼容客户端</strong>：直接替换 <code>base_url</code> 与 <code>api_key</code></li>
+            <li>也支持通过 API Key 直接调用，无需额外 SDK</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>需要科学上网吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>不需要。国内直连，无地区限制，无需 VPN。</p></div>
+      </details>
+      <details>
+        <summary>支持哪些客户端工具？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>Claude Code、Codex、Gemini CLI，以及任何走 Anthropic/OpenAI 协议的 IDE 插件、Agent 框架均可直接接入。</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 2. 价格与套餐 ============ -->
+  <section id="s2">
+    <div class="sec-head"><div class="sec-num">2</div><h2>价格与套餐</h2></div>
+    <div class="qa">
+      <details open>
+        <summary>多少钱？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <ul>
+            <li><strong>Claude 全系列</strong>：5 档方案可选，从 1.8 折到 7 折，折扣越低价格越省钱，折扣越高越稳定</li>
+            <li>其中 <strong>GPT-5.6 全系列</strong> 统一官方价 1.4 折，与 Claude 最低档并列同一价位</li>
+          </ul>
+        </div>
+      </details>
+
+      <details open>
+        <summary>方案怎么选？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <p>按渠道来源、并发能力、稳定性、模型覆盖四个维度划分，<strong>日常使用推荐「个人稳定版首选」</strong>：满血渠道、官方直连、稳定性良好，是性价比与稳定性的最佳平衡点。</p>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr class="group-row">
+                  <th></th>
+                  <th class="g-gpt">GPT 系列</th>
+                  <th class="g-claude" colspan="5">Claude 系列</th>
+                </tr>
+                <tr>
+                  <th>方案与功能</th>
+                  <th><span class="tier-name">GPT 全系列</span><span class="tier-off">1.4折</span></th>
+                  <th><span class="tier-name">个人性价比首选</span><span class="tier-off">1.8折</span></th>
+                  <th class="hero"><span class="tier-name">个人稳定版首选 · 推荐</span><span class="tier-off">3.5折</span></th>
+                  <th><span class="tier-name">个人进阶版首选</span><span class="tier-off">4折</span></th>
+                  <th><span class="tier-name">团队性价比首选</span><span class="tier-off">5折</span></th>
+                  <th><span class="tier-name">团队稳定版首选</span><span class="tier-off">7折</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>渠道分组</td><td>满血</td><td>逆向</td><td class="hero">满血</td><td>满血</td><td>满血</td><td>满血</td></tr>
+                <tr><td>并发路数</td><td class="stat">3 路</td><td class="stat">3 路</td><td class="hero stat">3 路</td><td class="stat">10 路</td><td class="stat">50 路</td><td class="stat">50 路</td></tr>
+                <tr><td>官方直连</td><td class="yes">✓</td><td class="no">✗</td><td class="hero yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                <tr><td>AWS Bedrock 拖底</td><td class="no">✗</td><td class="no">✗</td><td class="hero no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+                <tr><td>最新模型</td><td class="yes">✓</td><td class="no">✗</td><td class="hero yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                <tr><td>其余全系模型</td><td class="yes">✓</td><td class="yes">✓</td><td class="hero yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                <tr><td>Tool Use / Function Calling</td><td class="yes">✓</td><td class="yes">✓</td><td class="hero yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                <tr><td>MCP</td><td class="yes">✓</td><td class="yes">✓</td><td class="hero yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                <tr><td>Web Search</td><td class="yes">✓</td><td class="no">✗</td><td class="hero yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+                <tr><td>稳定性</td><td>良好</td><td>一般，偶发不稳定</td><td class="hero">良好</td><td>良好</td><td>良好</td><td>最高</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>"逆向"和"满血"是什么意思？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <p>指模型能力的技术来源不同，直接决定稳定性和使用体验：</p>
+          <ul>
+            <li><strong>逆向渠道</strong>：通过第三方账号池或客户端接口间接获取模型能力
+              <ul>
+                <li>存在第三方 system prompt，表现上会存在降智现象</li>
+                <li>缓存命中率会有一些差距</li>
+                <li>稳定性会有一些影响</li>
+              </ul>
+            </li>
+            <li><strong>满血渠道</strong>：与官方 API 能力完全对等（Claude Coding Plan / AWS Bedrock），模型行为与官方控制台一致，不存在被污染或降智问题，稳定性显著高于逆向渠道。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>团队稳定版的"AWS 拖底"是什么？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>团队稳定版在主渠道出现异常时，自动切换到 AWS Bedrock 官方合作渠道兜底。AWS Bedrock 是 Anthropic 与 AWS 官方合作的直连渠道，是当前稳定性最高的接入方式，因此该档位价格也相对更高。</p></div>
+      </details>
+
+      <details>
+        <summary>并发路数是什么意思？会不会经常排队？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>并发路数指同一时间可以处理的请求数量上限。档位越高并发越多：个人性价比/稳定版 3 路，进阶版 10 路，团队两档 50 路。高频调用或多人共用场景建议选择并发更高的档位，避免请求排队等待。</p></div>
+      </details>
+
+      <details>
+        <summary>固定价格还是随负载浮动？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>固定价格，所见即所付，不随官方负载或汇率浮动，无隐藏系数。</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 3. 支持的模型 ============ -->
+  <section id="s3">
+    <div class="sec-head"><div class="sec-num">3</div><h2>支持的模型</h2></div>
+    <div class="qa">
+      <details open>
+        <summary>支持哪些模型？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <ul>
+            <li><strong>Claude 系列</strong>：多款模型可选，覆盖最新旗舰模型到轻量模型</li>
+            <li><strong>GPT 系列</strong>：多款模型可选，覆盖最新旗舰模型到轻量模型</li>
+          </ul>
+          <p>模型列表持续更新，具体以站内实时列表为准。<strong>注意</strong>：个人性价比首选档位为逆向渠道，不含最新模型，其余模型齐全。</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 4. 功能支持差异 ============ -->
+  <section id="s4">
+    <div class="sec-head"><div class="sec-num">4</div><h2>功能支持差异（逆向 vs 满血）</h2></div>
+    <p class="sec-note">不同渠道对 Claude Code 内置能力的支持程度不一样，选购前建议确认清楚，尤其是 Web Search。</p>
+    <div class="qa">
+      <details>
+        <summary>Tool Use / Function Calling 支持吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>支持，所有档位均可正常使用。协议层能把请求转换成 Anthropic 格式，Claude Code 里正常调用工具没有问题，逆向渠道也不例外。</p></div>
+      </details>
+      <details>
+        <summary>MCP（Model Context Protocol）支持吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>支持，所有档位均可正常使用。MCP 是客户端侧协议——Claude Code 在本地拉起 MCP server，模型只负责决定调不调用，跟后端是不是逆向渠道无关，因此不受渠道类型影响。</p></div>
+      </details>
+      <details open>
+        <summary>Web Search 支持吗？（重点，坑最大）
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <p><strong>仅满血渠道支持，逆向渠道不支持或名不副实</strong>，这是两者差异最大、也最容易被忽略的一点。</p>
+          <p>原因：</p>
+          <ul>
+            <li><strong>WebFetch</strong>：模型吐出 <code>tool_use</code> 后，由 Claude Code 本地发起 HTTP 请求抓取网页——这是纯客户端行为，逆向渠道也能正常跑通。</li>
+            <li><strong>WebSearch</strong>：模型吐出 <code>tool_use</code> 后，是由 Anthropic 服务器端自行调用 Google/Bing 等搜索 API 返回结果——这是官方后端集成的能力，逆向渠道只做协议转发，接触不到这段服务器端逻辑，因此无法真正执行。</li>
+            <li>逆向渠道遇到 WebSearch 请求时，通常表现为直接报错，或静默降级为 WebFetch（看起来能用，实际检索不到真实结果）。</li>
+          </ul>
+          <p><strong>鉴别方法</strong>：需要联网搜索最新信息的场景，直接测试 WebSearch 能不能返回真实检索结果——能正常返回的是满血渠道，报错或结果明显不对的是逆向渠道。本站逆向分组（个人性价比首选）对应存在此限制，其余满血档位不受影响。</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 5. 充值与计费 ============ -->
+  <section id="s5">
+    <div class="sec-head"><div class="sec-num">5</div><h2>充值与计费</h2></div>
+    <div class="qa">
+      <details>
+        <summary>最低充值多少？有月费吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>无月费、无强制订阅。按量付费，用多少付多少，余额永久有效不过期。</p></div>
+      </details>
+      <details>
+        <summary>支持哪些支付方式？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>支付宝，充值即时到账。</p></div>
+      </details>
+      <details>
+        <summary>怎么计费？是按请求还是按 token？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>Token 级别精确计费，输入、输出、缓存读写分别计价，账单可逐笔核对，不会按请求整体估算导致多扣费。</p></div>
+      </details>
+      <details>
+        <summary>余额会过期吗？能退款吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>余额不过期。退款政策请以具体客服说明为准（涉及资金操作建议提前确认）。</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 6. 稳定性与安全 ============ -->
+  <section id="s6">
+    <div class="sec-head"><div class="sec-num">6</div><h2>稳定性与安全</h2></div>
+    <div class="qa">
+      <details>
+        <summary>会不会被封号/限流？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>多账号池 + 智能调度，单账号异常自动切换，支持粘性会话保证多轮对话上下文一致。国内直连账号不受地区限制影响。</p></div>
+      </details>
+      <details>
+        <summary>并发高会不会排队很久？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>支持用户级和账号级并发控制、可配置速率限制，套餐档位越高（如团队稳定版）资源优先级越高。</p></div>
+      </details>
+      <details>
+        <summary>我的对话内容会被记录或用于训练吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>对话内容仅用于处理你的请求，不用于训练，请求日志按平台隐私政策保留必要时长。</p></div>
+      </details>
+      <details>
+        <summary>账号安全怎么保障？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>支持可选的两步验证（2FA/TOTP），API Key 可随时吊销重新生成。</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 7. 成本参考 ============ -->
+  <section id="s7">
+    <div class="sec-head"><div class="sec-num">7</div><h2>成本参考</h2></div>
+    <div class="qa">
+      <details>
+        <summary>大概每月要花多少钱？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body">
+          <p>因人而异，粗略参考：</p>
+          <ul>
+            <li>轻量个人用户（日常问答、偶尔写代码）：月消费通常在几元到几十元区间</li>
+            <li>重度开发者（长上下文、高频调用）：视用量可能到数十到上百元，但相比官方原价通常能省下大头</li>
+          </ul>
+          <p>具体消费以实际 token 用量和所选套餐档位计算，后台账单可实时查看明细。</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 8. 团队与企业 ============ -->
+  <section id="s8">
+    <div class="sec-head"><div class="sec-num">8</div><h2>团队与企业</h2></div>
+    <div class="qa">
+      <details>
+        <summary>支持团队多人共用吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>支持。可为每个成员分配独立 API Key，统一计费到团队账户，管理员可在后台查看每个 Key 的用量明细。</p></div>
+      </details>
+      <details>
+        <summary>能开发票吗？
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="qa-body"><p>视平台具体政策，企业客户可联系客服咨询开票与合同事宜。</p></div>
+      </details>
+    </div>
+  </section>
+
+  <div class="foot">以上内容为通用说明，具体价格、支持范围以站内实时页面为准。</div>
+
+</div>
+</body>
+</html>
